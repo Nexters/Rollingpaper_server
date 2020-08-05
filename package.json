@@ -6,6 +6,7 @@
     "start": "node ./bin/www"
   },
   "dependencies": {
+    "aws-sdk": "^2.726.0",
     "cookie-parser": "~1.4.4",
     "debug": "~2.6.9",
     "dotenv": "^8.2.0",
@@ -14,7 +15,11 @@
     "helmet": "^3.21.3",
     "hpp": "^0.2.3",
     "http-errors": "~1.6.3",
+    "mariadb": "^2.4.2",
     "morgan": "~1.9.1",
+    "multer": "^1.4.2",
+    "multer-s3": "^2.9.0",
+    "sequelize": "^6.3.4",
     "winston": "^3.2.1",
     "winston-daily-rotate-file": "^4.4.2"
   }

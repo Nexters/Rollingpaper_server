@@ -6,14 +6,9 @@ module.exports = (sequelize, Sequelize) => {
             primaryKey: true,
             autoIncrement: true
         },
-        // 글 내용
-        content: {
+        // 이미지 URL
+        url: {
             type: Sequelize.STRING(1500),
-            allowNull: true
-        },
-        // 작성자 이름
-        author: {
-            type: Sequelize.STRING,
             allowNull: true
         },
     }, {
