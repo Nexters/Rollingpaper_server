@@ -40,6 +40,38 @@ router.get('/:id', async (req, res) => {
     }
 })
 
+router.get('/', async (req, res) => {
+    try {
+        const {
+            receiver,
+            password
+        } = req.query;
+
+        const rollingPaper = await Rollingpaper.findOne({
+            where: {
+                receiver,
+                password
+            }
+        });
+
+        if (!rollingPaper || !receiver || !password) {
+            res.status(200).json(response(resMessage.WRONG_PARAMS));
+            return;
+        }
+
+        const contents = await RollingpaperContent.findAll({
+            where: {
+                rollingpaperId: rollingPaper.id
+            }
+        });
+
+        res.status(200).json(response(resMessage.READ_SUCCESS, contents));
+    } catch (err) {
+        console.log(err);
+        res.status(200).json(response(resMessage.INTERNAL_SERVER_ERROR));
+    }
+})
+
 // 롤링페이퍼 생성
 router.post('/', async (req, res) => {
     try {
