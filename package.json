@@ -19,11 +19,8 @@
     "http-errors": "~1.6.3",
     "mariadb": "^2.4.2",
     "morgan": "~1.9.1",
-<<<<<<< HEAD
     "multer": "^1.4.2",
     "multer-s3": "^2.9.0",
-=======
->>>>>>> feature/4
     "sequelize": "^6.3.4",
     "winston": "^3.2.1",
     "winston-daily-rotate-file": "^4.4.2"
