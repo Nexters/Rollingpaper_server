@@ -117,4 +117,30 @@ router.post('/:id/content', upload.single("image"), async (req, res) => {
     }
 });
 
+// 롤링페이퍼 내의 컨텐츠 삭제
+router.delete('/content/:id', async (req, res) => {
+    try {
+        // 트랜잭션 처리
+        var transaction = await sequelize.transaction();
+
+        const id = req.params.id;
+        const content = await RollingpaperContent.destroy({
+            where: {
+                id
+            }
+        });
+
+        if (!content || !id) {
+            res.status(200).json(response(resMessage.WRONG_PARAMS));
+            return;
+        }
+
+        res.status(200).json(response(resMessage.DELETE_SUCCESS));
+    } catch (err) {
+        console.log(err);
+        transaction.rollback();
+        res.status(200).json(response(resMessage.INTERNAL_SERVER_ERROR));
+    }
+});
+
 module.exports = router;
