@@ -18,6 +18,9 @@ const hpp = require('hpp');
 // express 객체 생성
 const app = express();
 
+const cors = require('cors');
+app.use(cors());
+
 // express 기본 셋팅
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
