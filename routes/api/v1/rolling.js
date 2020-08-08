@@ -53,6 +53,8 @@ router.get('/', async (req, res) => {
                 password
             }
         });
+        console.log(receiver, password)
+        console.log(rollingPaper);
 
         if (!rollingPaper || !receiver || !password) {
             res.status(200).json(response(resMessage.WRONG_PARAMS));
@@ -85,7 +87,7 @@ router.post('/', async (req, res) => {
 
         // receiver나 password가 undefined일 경우 에러 띄워주기
         if (!receiver || !password) {
-            return res.status(200).json(response(resMessage.WRONG_VALUE));
+            return res.status(200).json(response(resMessage.WRONG_PARAMS));
         }
 
         // 이름 + pw으로 중복 처리 
@@ -116,13 +118,13 @@ router.post('/', async (req, res) => {
 })
 
 // 롤링페이퍼 내의 컨텐츠 생성
-router.post('/:id/content', upload.single("image"), async (req, res) => {
+router.post('/:id/content', async (req, res) => {
     try {
         // 트랜잭션 처리
         var transaction = await sequelize.transaction();
 
         const id = req.params.id;
-        const url = req.file.location;
+        const { font, sort, color, backgroundColor } = req.body;
 
         const rollingpaper = await Rollingpaper.findOne({
             where: {
@@ -136,8 +138,11 @@ router.post('/:id/content', upload.single("image"), async (req, res) => {
         }
 
         await RollingpaperContent.build({
-            url: url,
-            rollingpaperId: id
+            rollingpaperId: id,
+            font,
+            sort,
+            color,
+            backgroundColor
         }).save();
 
         await transaction.commit();

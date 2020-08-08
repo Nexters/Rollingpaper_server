@@ -17,9 +17,6 @@ module.exports = (sequelize, Sequelize) => {
             allowNull: true,
         }
     }, {
-        // 컬럼을 네이밍할 때, _를 사용해서 작명한다.
-        // (ex: createdAt -> created_at)
-        underscored: true,
 
         // updatedAt열, createdAt열 자동 추가
         timestamps: true,
