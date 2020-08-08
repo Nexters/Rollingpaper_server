@@ -103,13 +103,17 @@ router.post('/', async (req, res) => {
             return res.status(200).json(response(resMessage.ALREADY_USER));
         }
 
-        await Rollingpaper.create({
+        const createRollingpaper = await Rollingpaper.create({
             receiver,
             password
         });
+        // console.log('createRollingpaper : ', createRollingpaper)
+        const data = {
+            rollingpaperId: createRollingpaper.dataValues.id
+        }
+        
         await transaction.commit();
-
-        res.status(200).json(response(resMessage.SAVE_SUCCESS));
+        res.status(200).json(response(resMessage.SAVE_SUCCESS, data));
     } catch (err) {
         console.log(err);
         transaction.rollback();
