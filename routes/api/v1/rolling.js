@@ -40,6 +40,7 @@ router.get('/:id', async (req, res) => {
     }
 })
 
+// 롤링페이퍼 조회 (receiver, password로 조회)
 router.get('/', async (req, res) => {
     try {
         const {
@@ -53,8 +54,8 @@ router.get('/', async (req, res) => {
                 password
             }
         });
-        console.log(receiver, password)
-        console.log(rollingPaper);
+        // console.log(receiver, password)
+        // console.log(rollingPaper);
 
         if (!rollingPaper || !receiver || !password) {
             res.status(200).json(response(resMessage.WRONG_PARAMS));
@@ -67,7 +68,12 @@ router.get('/', async (req, res) => {
             }
         });
 
-        res.status(200).json(response(resMessage.READ_SUCCESS, contents));
+        const data = {
+            contents,
+            rollingpaperId: rollingPaper.id
+        }
+
+        res.status(200).json(response(resMessage.READ_SUCCESS, data));
     } catch (err) {
         console.log(err);
         res.status(200).json(response(resMessage.INTERNAL_SERVER_ERROR));
