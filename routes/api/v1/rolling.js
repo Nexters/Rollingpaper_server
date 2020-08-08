@@ -40,6 +40,38 @@ router.get('/:id', async (req, res) => {
     }
 })
 
+router.get('/', async (req, res) => {
+    try {
+        const {
+            receiver,
+            password
+        } = req.query;
+
+        const rollingPaper = await Rollingpaper.findOne({
+            where: {
+                receiver,
+                password
+            }
+        });
+
+        if (!rollingPaper || !receiver || !password) {
+            res.status(200).json(response(resMessage.WRONG_PARAMS));
+            return;
+        }
+
+        const contents = await RollingpaperContent.findAll({
+            where: {
+                rollingpaperId: rollingPaper.id
+            }
+        });
+
+        res.status(200).json(response(resMessage.READ_SUCCESS, contents));
+    } catch (err) {
+        console.log(err);
+        res.status(200).json(response(resMessage.INTERNAL_SERVER_ERROR));
+    }
+})
+
 // 롤링페이퍼 생성
 router.post('/', async (req, res) => {
     try {
@@ -110,6 +142,32 @@ router.post('/:id/content', upload.single("image"), async (req, res) => {
 
         await transaction.commit();
         res.status(200).json(response(resMessage.SAVE_SUCCESS));
+    } catch (err) {
+        console.log(err);
+        transaction.rollback();
+        res.status(200).json(response(resMessage.INTERNAL_SERVER_ERROR));
+    }
+});
+
+// 롤링페이퍼 내의 컨텐츠 삭제
+router.delete('/content/:id', async (req, res) => {
+    try {
+        // 트랜잭션 처리
+        var transaction = await sequelize.transaction();
+
+        const id = req.params.id;
+        const content = await RollingpaperContent.destroy({
+            where: {
+                id
+            }
+        });
+
+        if (!content || !id) {
+            res.status(200).json(response(resMessage.WRONG_PARAMS));
+            return;
+        }
+
+        res.status(200).json(response(resMessage.DELETE_SUCCESS));
     } catch (err) {
         console.log(err);
         transaction.rollback();
