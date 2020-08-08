@@ -6,9 +6,24 @@ module.exports = (sequelize, Sequelize) => {
             primaryKey: true,
             autoIncrement: true
         },
-        // 이미지 URL
-        url: {
-            type: Sequelize.STRING(1500),
+        // 서체
+        font: {
+            type: Sequelize.STRING,
+            allowNull: true
+        },
+        // 정렬
+        sort: {
+            type: Sequelize.STRING,
+            allowNull: true
+        },
+        // 색상
+        color: {
+            type: Sequelize.STRING,
+            allowNull: true
+        },
+        // 배경색
+        backgroundColor: {
+            type: Sequelize.STRING,
             allowNull: true
         },
     }, {
