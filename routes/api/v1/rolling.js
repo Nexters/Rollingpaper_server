@@ -128,7 +128,7 @@ router.post('/:id/content', async (req, res) => {
         var transaction = await sequelize.transaction();
 
         const id = req.params.id;
-        const { font, sort, color, backgroundColor } = req.body;
+        const { font, sort, color, backgroundColor, author, content } = req.body;
 
         const rollingpaper = await Rollingpaper.findOne({
             where: {
@@ -146,7 +146,9 @@ router.post('/:id/content', async (req, res) => {
             font,
             sort,
             color,
-            backgroundColor
+            backgroundColor,
+            author,
+            content
         }).save();
 
         await transaction.commit();

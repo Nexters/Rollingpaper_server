@@ -29,8 +29,8 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 // sequelize 관련
 const { sequelize } = require('./models');
-// sequelize.sync({force: true}); // 앱을 키고 끌 때마다 DB를 모두 DROP시키고 새로 생성한다. 
-sequelize.sync(); // DB에 있는 데이터를 보존하면서 Sequelize를 키는 명령어
+sequelize.sync({force: true}); // 앱을 키고 끌 때마다 DB를 모두 DROP시키고 새로 생성한다. 
+// sequelize.sync(); // DB에 있는 데이터를 보존하면서 Sequelize를 키는 명령어
 
 // dotenv 관련
 require('dotenv').config();
