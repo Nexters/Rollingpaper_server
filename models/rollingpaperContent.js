@@ -36,6 +36,11 @@ module.exports = (sequelize, Sequelize) => {
             type: Sequelize.STRING,
             allowNull: true
         },
+        // 배경 이미지
+        backgroundImage: {
+            type: Sequelize.STRING(1500),
+            allowNull: true
+        }
     }, {
 
         // updatedAt열, createdAt열 자동 추가

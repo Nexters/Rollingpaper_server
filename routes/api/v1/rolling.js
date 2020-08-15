@@ -128,10 +128,13 @@ router.post('/', async (req, res) => {
 })
 
 // 롤링페이퍼 내의 컨텐츠 생성
-router.post('/:id/content', async (req, res) => {
+router.post('/:id/content', upload.single('backgroundImage'), async (req, res) => {
     try {
         // 트랜잭션 처리
         var transaction = await sequelize.transaction();
+
+        const backgroundImage = req.file;
+        console.log('backgroundImage : ', backgroundImage);
 
         const id = req.params.id;
         const { font, sort, color, backgroundColor, author, content } = req.body;
@@ -154,7 +157,8 @@ router.post('/:id/content', async (req, res) => {
             color,
             backgroundColor,
             author,
-            content
+            content,
+            backgroundImage: backgroundImage.location
         }).save();
 
         await transaction.commit();
