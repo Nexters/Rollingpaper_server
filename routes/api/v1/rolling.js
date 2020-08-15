@@ -145,7 +145,7 @@ router.post('/:id/content', upload.single('backgroundImage'), async (req, res) =
             }
         });
 
-        if (!rollingpaper || !backgroundImage) {
+        if (!rollingpaper) {
             transaction.rollback();
             return res.status(200).json(response(resMessage.WRONG_PARAMS));
         }
@@ -158,7 +158,7 @@ router.post('/:id/content', upload.single('backgroundImage'), async (req, res) =
             backgroundColor,
             author,
             content,
-            backgroundImage: backgroundImage.location
+            backgroundImage: backgroundImage ? backgroundImage.location : undefined
         }).save();
 
         await transaction.commit();
