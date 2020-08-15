@@ -145,7 +145,7 @@ router.post('/:id/content', upload.single('backgroundImage'), async (req, res) =
             }
         });
 
-        if (rollingpaper === null) {
+        if (!rollingpaper || !backgroundImage) {
             transaction.rollback();
             return res.status(200).json(response(resMessage.WRONG_PARAMS));
         }
