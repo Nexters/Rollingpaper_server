@@ -134,7 +134,7 @@ router.post('/:id/content', upload.single('backgroundImage'), async (req, res) =
         var transaction = await sequelize.transaction();
 
         const backgroundImage = req.file;
-        console.log('backgroundImage : ', backgroundImage);
+        // console.log('backgroundImage : ', backgroundImage);
 
         const id = req.params.id;
         const { font, sort, color, backgroundColor, author, content } = req.body;
