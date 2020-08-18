@@ -19,7 +19,12 @@ const hpp = require('hpp');
 const app = express();
 
 const cors = require('cors');
-app.use(cors());
+// CORS 허용 셋팅
+const corsOptions = {
+    origin: '*',
+    credentials: true
+};
+app.use(cors(corsOptions));
 
 // express 기본 셋팅
 app.use(express.json());
