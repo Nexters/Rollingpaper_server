@@ -93,6 +93,7 @@ router.post('/', async (req, res) => {
 
         // receiver나 password가 undefined일 경우 에러 띄워주기
         if (!receiver || !password) {
+            await transaction.rollback();
             return res.status(200).json(response(resMessage.WRONG_PARAMS));
         }
 
@@ -184,10 +185,12 @@ router.delete('/content/:id', async (req, res) => {
         });
 
         if (!content || !id) {
+            await transaction.rollback();
             res.status(200).json(response(resMessage.WRONG_PARAMS));
             return;
         }
-
+        
+        await transaction.commit();
         res.status(200).json(response(resMessage.DELETE_SUCCESS));
     } catch (err) {
         console.log(err);

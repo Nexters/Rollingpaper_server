@@ -83,6 +83,7 @@ router.delete('/', async (req, res) => {
 
         const { stickerId } = req.body;
         if (!stickerId) {
+            await transaction.rollback();
             res.status(200).json(response(resMessage.WRONG_PARAMS));
             return;
         }
@@ -93,6 +94,7 @@ router.delete('/', async (req, res) => {
             }
         });
 
+        await transaction.commit();
         res.status(200).json(response(resMessage.DELETE_SUCCESS));
     } catch (err) {
         console.log(err);
