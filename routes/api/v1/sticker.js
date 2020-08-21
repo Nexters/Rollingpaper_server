@@ -2,6 +2,7 @@ var express = require('express');
 var router = express.Router();
 const response = require('../../../module/response');
 const resMessage = require('../../../module/response/message');
+const errorAlarm = require('../../../module/errorAlarm');
 const {
     sequelize,
     Sequelize: {
@@ -36,6 +37,7 @@ router.get('/', async (req, res) => {
         res.status(200).json(response(resMessage.READ_SUCCESS, contents));
     } catch (err) {
         console.log(err);
+        errorAlarm(err);
         res.status(200).json(response(resMessage.INTERNAL_SERVER_ERROR));
     }
 })
@@ -69,6 +71,7 @@ router.post('/', async (req, res) => {
         res.status(200).json(response(resMessage.SAVE_SUCCESS));
     } catch (err) {
         console.log(err);
+        errorAlarm(err);
         transaction.rollback();
         res.status(200).json(response(resMessage.INTERNAL_SERVER_ERROR));
     }
@@ -98,6 +101,7 @@ router.delete('/', async (req, res) => {
         res.status(200).json(response(resMessage.DELETE_SUCCESS));
     } catch (err) {
         console.log(err);
+        errorAlarm(err);
         transaction.rollback();
         res.status(200).json(response(resMessage.INTERNAL_SERVER_ERROR));
     }

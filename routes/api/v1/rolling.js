@@ -2,6 +2,7 @@ var express = require('express');
 var router = express.Router();
 const response = require('../../../module/response');
 const resMessage = require('../../../module/response/message');
+const errorAlarm = require('../../../module/errorAlarm');
 const {
     sequelize,
     Sequelize: {
@@ -36,6 +37,7 @@ router.get('/:id', async (req, res) => {
         res.status(200).json(response(resMessage.READ_SUCCESS, contents));
     } catch (err) {
         console.log(err);
+        errorAlarm(err);
         res.status(200).json(response(resMessage.INTERNAL_SERVER_ERROR));
     }
 })
@@ -76,6 +78,7 @@ router.get('/', async (req, res) => {
         res.status(200).json(response(resMessage.READ_SUCCESS, data));
     } catch (err) {
         console.log(err);
+        errorAlarm(err);
         res.status(200).json(response(resMessage.INTERNAL_SERVER_ERROR));
     }
 })
@@ -123,6 +126,7 @@ router.post('/', async (req, res) => {
         res.status(200).json(response(resMessage.SAVE_SUCCESS, data));
     } catch (err) {
         console.log(err);
+        errorAlarm(err);
         transaction.rollback();
         res.status(200).json(response(resMessage.INTERNAL_SERVER_ERROR));
     }
@@ -166,6 +170,7 @@ router.post('/:id/content', upload.single('backgroundImage'), async (req, res) =
         res.status(200).json(response(resMessage.SAVE_SUCCESS));
     } catch (err) {
         console.log(err);
+        errorAlarm(err);
         transaction.rollback();
         res.status(200).json(response(resMessage.INTERNAL_SERVER_ERROR));
     }
@@ -194,6 +199,7 @@ router.delete('/content/:id', async (req, res) => {
         res.status(200).json(response(resMessage.DELETE_SUCCESS));
     } catch (err) {
         console.log(err);
+        errorAlarm(err);
         transaction.rollback();
         res.status(200).json(response(resMessage.INTERNAL_SERVER_ERROR));
     }

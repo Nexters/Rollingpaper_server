@@ -2,6 +2,7 @@ var express = require('express');
 var router = express.Router();
 const response = require('../../../module/response');
 const resMessage = require('../../../module/response/message');
+const errorAlarm = require('../../../module/errorAlarm');
 const {
     sequelize,
     Sequelize: {
@@ -22,7 +23,8 @@ router.get('/', async (req, res) => {
             rollingPaperContent
         }));
     } catch (err) {
-        console.log(err);
+        console.log('에러 : ', err);
+        errorAlarm(err);
         res.status(200).json(response(resMessage.INTERNAL_SERVER_ERROR));
     }
 })
