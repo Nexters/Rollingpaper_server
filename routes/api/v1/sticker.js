@@ -51,7 +51,7 @@ router.post('/', async (req, res) => {
         const { rollingpaperId, x, y , url } = req.body;
 
         // receiver나 password가 undefined일 경우 에러 띄워주기
-        if (!rollingpaperId || !x || !y || !url) {
+        if (!rollingpaperId || !url) {
             await transaction.rollback();
             return res.status(200).json(response(resMessage.WRONG_PARAMS));
         }
