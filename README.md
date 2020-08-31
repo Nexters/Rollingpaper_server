@@ -2,8 +2,6 @@
 
 > 한 사람을 위해 마음을 전달하는 온라인 롤링페이퍼! 👉 https://rollingpaper.site/
 
-![badge](https://img.shields.io/badge/Part-Front--end-brightgreen) ![lang](https://img.shields.io/badge/Language-JavaScript-blue) ![react](https://img.shields.io/badge/Tech--stack-React-orange) ![realease](https://img.shields.io/badge/release-v1.0.0-yellow)
-
 ![](https://user-images.githubusercontent.com/38487811/90950455-85d36700-e48c-11ea-9b79-72b5dcb6c6d6.png)
 
 ## 🎁 Description
